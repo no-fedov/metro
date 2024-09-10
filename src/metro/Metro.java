@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Metro {
     private final String city;
@@ -25,25 +26,37 @@ public class Metro {
                                          Set<Station> transferStations) {
         Line currentLine = getCurrentLine(colorLine, stationName);
 
-        if (!currentLine.isEmpty()) {
-            throw new RuntimeException("Нельзя дважды добавить первую станцию");
+        if (currentLine.getFirstStation() != null) {
+            throw new RuntimeException("Линия уже содержит первую станцию");
         }
 
-        currentLine.addStation(new Station(stationName, currentLine, this, transferStations),
-                Duration.ZERO);
+        Station newStation = createStationToAdd(stationName, currentLine, transferStations);
+        currentLine.addStation(newStation, null);
     }
 
     public void createLastStationToLine(String colorLine,
                                         String stationName,
                                         Duration timeDrivingFromPreviousStation,
                                         Set<Station> transferStations) {
-        if (timeDrivingFromPreviousStation.compareTo(Duration.ZERO) <= 0) {
-            throw new RuntimeException("Время перегона должно быть больше 0");
+        Line currentLine = getCurrentLine(colorLine, stationName);
+
+        if (currentLine.getLastStation() != null && currentLine.getLastStation().getNext() != null) {
+            throw new RuntimeException("Пердыдущая станция должна существовать и не должна иметь следующей станции");
         }
 
-        Line currentLine = getCurrentLine(colorLine, stationName);
-        currentLine.addStation(new Station(stationName, currentLine, this, transferStations),
-                timeDrivingFromPreviousStation);
+        if (timeDrivingFromPreviousStation == null || timeDrivingFromPreviousStation.compareTo(Duration.ZERO) <= 0) {
+            throw new RuntimeException("Некорректно задано время перегона");
+        }
+
+        Station newStation = createStationToAdd(stationName, currentLine, transferStations);
+        currentLine.addStation(newStation, timeDrivingFromPreviousStation);
+    }
+
+    public Station findStationByName(String stationName) {
+        return lines.stream()
+                .map(line -> line.getStationByName(stationName))
+                .filter(Objects::nonNull)
+                .findFirst().orElseThrow(() -> new RuntimeException("Такой станции еще не существует"));
     }
 
     private Line getCurrentLine(String colorLine, String stationName) {
@@ -61,6 +74,10 @@ public class Metro {
             }
         });
         return currentLine;
+    }
+
+    private Station createStationToAdd(String stationName, Line line, Set<Station> transferStations) {
+        return new Station(stationName, line, this, transferStations);
     }
 
     @Override

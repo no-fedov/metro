@@ -1,9 +1,7 @@
 package metro;
 
 import java.time.Duration;
-import java.util.Map;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Ветка метро
@@ -13,58 +11,64 @@ public class Line {
     private final Metro metro;
     private Station firstStation;
     private Station lastStation;
-
     private final Map<String, Station> stations;
 
     public Line(String color, Metro metro) {
+        if (color == null || color.isBlank() || metro == null) {
+            throw new RuntimeException("Ошибка инициализации объекта Line"
+                    + " (параметры конструктора не должны быть пустыми)");
+        }
         this.color = color;
         this.metro = metro;
-        this.stations = new TreeMap<>();
+        this.stations = new HashMap<>();
     }
 
-    public void addStation(Station station, Duration timeDrivingFromPreviousStation) {
-        validStation(station);
+    public Station getFirstStation() {
+        return firstStation;
+    }
 
-        if (firstStation == null) {
-            firstStation = station;
-            lastStation = station;
-        } else {
-            lastStation.setNext(station, timeDrivingFromPreviousStation);
-            station.setPrevious(lastStation);
-            lastStation = station;
-        }
-        stations.put(station.getName(), station);
+    public Station getLastStation() {
+        return lastStation;
     }
 
     public String getColor() {
         return color;
     }
 
+    public void addStation(Station station, Duration timeDrivingFromPreviousStation) {
+        if (firstStation == null) {
+            {
+                // точно ли это нужно?
+                station.setNext(null);
+                station.setPrevious(null);
+            }
+            firstStation = station;
+        } else {
+            lastStation.setNext(station);
+            lastStation.setTimeDrivingToNextStation(timeDrivingFromPreviousStation);
+            station.setPrevious(lastStation);
+            {
+                // точно ли это нужно?
+                station.setNext(null);
+            }
+        }
+        lastStation = station;
+        stations.put(station.getName(), station);
+    }
+
+    public Station getStationByName(String stationName) {
+        return stations.get(stationName);
+    }
+
     public boolean hasStationWithName(String stationName) {
         return stations.containsKey(stationName);
-    }
-
-    public boolean isEmpty() {
-        return stations.isEmpty();
-    }
-
-    private String getStationsForPrint() {
-        Station currentStation = firstStation;
-        String result = "{";
-        result = currentStation.toString();
-        while (currentStation.getNext() != null) {
-            result += currentStation.getNext().toString() + ",";
-            currentStation = currentStation.getNext();
-        }
-        result = result.substring(0, result.length() - 1);
-        return result + "}";
     }
 
     @Override
     public String toString() {
         return "Line{" +
                 "color='" + color + '\'' +
-                ", stations=" + getStationsForPrint() +
+                ", stations=" + getCorrectSequenceStations() +
                 '}';
     }
 
@@ -86,15 +90,17 @@ public class Line {
         return Objects.hash(color, metro);
     }
 
-    private void validStation(Station station) {
-        if (stations.containsKey(station.getName())) {
-            throw new RuntimeException("Нельзя добавить станцию с одинаковым именем");
+    public List<Station> getCorrectSequenceStations() {
+        List<Station> stationsSequence = new ArrayList<>();
+        if (stations.isEmpty()) {
+            return stationsSequence;
         }
-        if (!station.getLine().equals(this)) {
-            throw new RuntimeException("Нельзя добавить станцию от другой линии");
+        Station currentStation = firstStation;
+        while (currentStation.getNext() != null) {
+            stationsSequence.add(currentStation);
+            currentStation = currentStation.getNext();
         }
-        if (!station.getMetro().equals(this.metro)) {
-            throw new RuntimeException("Нельзя добавить станцию от другого метро");
-        }
+        stationsSequence.add(currentStation);
+        return stationsSequence;
     }
 }

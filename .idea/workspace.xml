@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/metro.iml" afterDir="false" />
+    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="refactor Station class nethod simplify the method (setTransferStations)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Runner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/metro/Metro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Metro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;no-fedov&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/no-fedov/metro.git&quot;,
+    &quot;accountId&quot;: &quot;a21ac5dc-6fc7-454b-b713-7f49ac3d8775&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -111,6 +118,57 @@
       <option name="presentableId" value="Default" />
       <updated>1725796294841</updated>
     </task>
+    <task id="LOCAL-00001" summary="нужно поработать с выводом. Думаю как передавать станции для перехода...">
+      <option name="closed" value="true" />
+      <created>1725900157508</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725900157508</updated>
+    </task>
+    <task id="LOCAL-00002" summary="не работает свзяь между линиями метро">
+      <option name="closed" value="true" />
+      <created>1725978080858</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725978080859</updated>
+    </task>
+    <task id="LOCAL-00003" summary="complete first stage">
+      <option name="closed" value="true" />
+      <created>1725978944869</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725978944869</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactor Station class nethod simplify the method (setTransferStations)">
+      <option name="closed" value="true" />
+      <created>1725979453845</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1725979453845</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="нужно поработать с выводом. Думаю как передавать станции для перехода..." />
+    <MESSAGE value="не работает свзяь между линиями метро" />
+    <MESSAGE value="complete first stage" />
+    <MESSAGE value="refactor Station class nethod simplify the method (setTransferStations)" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor Station class nethod simplify the method (setTransferStations)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Runner.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

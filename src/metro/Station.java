@@ -1,7 +1,7 @@
 package metro;
 
 import java.time.Duration;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -25,9 +25,8 @@ public class Station {
         this.name = name;
         this.line = line;
         this.metro = metro;
-        this.transferStations = transferStations;
+        this.setTransferStations(transferStations);
     }
-
 
     public String getName() {
         return name;
@@ -49,15 +48,16 @@ public class Station {
         return next;
     }
 
-    public void setNext(Station station, Duration timeDriving) {
-        validStation(station);
-        this.next = station;
-        this.timeDrivingToNextStation = timeDriving;
+    public void setPrevious(Station station) {
+        this.previous = station;
     }
 
-    public void setPrevious(Station previous) {
-        validStation(previous);
-        this.previous = previous;
+    public void setNext(Station station) {
+        this.next = station;
+    }
+
+    public void setTimeDrivingToNextStation(Duration timeDrivingToNextStation) {
+        this.timeDrivingToNextStation = timeDrivingToNextStation;
     }
 
     @Override
@@ -85,6 +85,19 @@ public class Station {
                 '}';
     }
 
+    private void setTransferStations(Set<Station> transferStations) {
+        this.transferStations = transferStations;
+        if (transferStations == null) {
+            return;
+        }
+        transferStations.forEach(station -> {
+            if (station.transferStations == null) {
+                station.transferStations = new HashSet<>();
+            }
+            station.transferStations.add(this);
+        });
+    }
+
     private String getTransferLines() {
         if (transferStations == null) {
             return null;
@@ -93,14 +106,5 @@ public class Station {
                 .map(station -> station.getLine().getColor())
                 .toList();
         return String.join(", ", colorsLineTransferStation);
-    }
-
-    private void validStation(Station station) {
-        if (!station.getLine().equals(this.line)) {
-            throw new RuntimeException("Нельзя добавить станцию от другой линии");
-        }
-        if (!station.getMetro().equals(this.metro)) {
-            throw new RuntimeException("Нельзя добавить станцию от другой метро");
-        }
     }
 }
