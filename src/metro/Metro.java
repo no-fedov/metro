@@ -3,8 +3,8 @@ package metro;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Metro {
     private final String city;
@@ -14,17 +14,26 @@ public class Metro {
         this.city = city;
     }
 
+    /**
+     * Создает линию/ветку метро, принимает в параметре 'ЦВЕТ' для новой ветки.
+     * ЦВЕТ должен быть уникальным.
+     */
     public void createMetroLine(String colorLine) {
         Line line = new Line(colorLine, this);
         if (!lines.add(line)) {
-            throw new RuntimeException("Такой цвет линии уже есть");
+            throw new RuntimeException(String.format("Такой цвет линии '%s' уже есть", colorLine));
         }
     }
 
+    /**
+     * Создает в указанной линии первую станцию по её названию и станциям пересадки.
+     * Имя станции должно быть уникальным для всех веток/линий.
+     */
     public void createFirstStationToLine(String colorLine,
                                          String stationName,
                                          Set<Station> transferStations) {
-        Line currentLine = getCurrentLine(colorLine, stationName);
+        Line currentLine = getCurrentLine(colorLine);
+        checkStationDuplicates(stationName);
 
         if (currentLine.getFirstStation() != null) {
             throw new RuntimeException("Линия уже содержит первую станцию");
@@ -38,7 +47,8 @@ public class Metro {
                                         String stationName,
                                         Duration timeDrivingFromPreviousStation,
                                         Set<Station> transferStations) {
-        Line currentLine = getCurrentLine(colorLine, stationName);
+        Line currentLine = getCurrentLine(colorLine);
+        checkStationDuplicates(stationName);
 
         if (currentLine.getLastStation() != null && currentLine.getLastStation().getNext() != null) {
             throw new RuntimeException("Пердыдущая станция должна существовать и не должна иметь следующей станции");
@@ -52,31 +62,62 @@ public class Metro {
         currentLine.addStation(newStation, timeDrivingFromPreviousStation);
     }
 
+    /**
+     * Возвращает станцию по названию.
+     */
     public Station findStationByName(String stationName) {
         return lines.stream()
                 .map(line -> line.getStationByName(stationName))
                 .filter(Objects::nonNull)
-                .findFirst().orElseThrow(() -> new RuntimeException("Такой станции еще не существует"));
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(
+                                String.format("Станции с именем '%s' еще не существует", stationName)
+                        )
+                );
     }
 
-    private Line getCurrentLine(String colorLine, String stationName) {
-        Line referenceLine = new Line(colorLine, this);
+    public Station getTransferStationBetweenLines(String startLineName,
+                                                  String endLineName) {
+        Line lineStartTrip = getCurrentLine(startLineName);
+        Line lineEndTrip = getCurrentLine(endLineName);
 
-        Line currentLine = lines.stream()
+        Station currentStation = lineStartTrip.getFirstStation();
+        while (currentStation != null) {
+            Set<Station> stations = currentStation.getTransferStations();
+            if (stations != null) {
+                //ищем станцию пересадки на endLine
+                Optional<Station> foundTransferStation = stations.stream()
+                        .filter(station -> station.getLine().equals(lineEndTrip))
+                        .findFirst();
+                if (foundTransferStation.isPresent()) {
+                    return foundTransferStation.get();
+                }
+            }
+            currentStation = currentStation.getNext();
+        }
+        throw new RuntimeException("Между станциями нет пересадки");
+    }
+
+    private Line getCurrentLine(String colorLine) {
+        Line referenceLine = new Line(colorLine, this);
+        return lines.stream()
                 .filter(line -> line.equals(referenceLine))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Нет линии данного цвета"));
+                .orElseThrow(() -> new RuntimeException(String.format("Нет линии данного цвета: %s", colorLine)));
+    }
 
+    private void checkStationDuplicates(String stationName) {
         lines.forEach(line -> {
             if (line.hasStationWithName(stationName)) {
                 throw new RuntimeException("Имя станции должно быть уникальным" +
                         " (включая названия станций в остальных ветках");
             }
         });
-        return currentLine;
     }
 
-    private Station createStationToAdd(String stationName, Line line, Set<Station> transferStations) {
+    private Station createStationToAdd(String stationName,
+                                       Line line,
+                                       Set<Station> transferStations) {
         return new Station(stationName, line, this, transferStations);
     }
 

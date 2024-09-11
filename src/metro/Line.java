@@ -90,7 +90,7 @@ public class Line {
         return Objects.hash(color, metro);
     }
 
-    public List<Station> getCorrectSequenceStations() {
+    private List<Station> getCorrectSequenceStations() {
         List<Station> stationsSequence = new ArrayList<>();
         if (stations.isEmpty()) {
             return stationsSequence;

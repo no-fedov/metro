@@ -64,11 +64,5 @@ public class Runner {
                 Duration.ofMinutes(1).plusSeconds(48), null);
 
         System.out.println(metro);
-
-
-        metro.findStationByName("Пермь 1");
-
-
-        System.out.println("Ты черт");
     }
 }

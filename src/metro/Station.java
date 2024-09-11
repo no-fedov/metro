@@ -48,6 +48,10 @@ public class Station {
         return next;
     }
 
+    public Set<Station> getTransferStations() {
+        return new HashSet<>(transferStations);
+    }
+
     public void setPrevious(Station station) {
         this.previous = station;
     }
