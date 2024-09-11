@@ -49,7 +49,7 @@ public class Station {
     }
 
     public Set<Station> getTransferStations() {
-        return new HashSet<>(transferStations);
+        return transferStations;
     }
 
     public void setPrevious(Station station) {

@@ -64,5 +64,9 @@ public class Runner {
                 Duration.ofMinutes(1).plusSeconds(48), null);
 
         System.out.println(metro);
+
+        Station stationBetweenLines = metro.getTransferStationBetweenLines("Красная", "Синяя");
+
+        System.out.println(stationBetweenLines);
     }
 }

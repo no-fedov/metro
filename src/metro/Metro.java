@@ -89,13 +89,14 @@ public class Metro {
                 Optional<Station> foundTransferStation = stations.stream()
                         .filter(station -> station.getLine().equals(lineEndTrip))
                         .findFirst();
+                //если станция существует, то возвращаем текущую станцию из первой ветки
                 if (foundTransferStation.isPresent()) {
-                    return foundTransferStation.get();
+                    return currentStation;
                 }
             }
             currentStation = currentStation.getNext();
         }
-        throw new RuntimeException("Между станциями нет пересадки");
+        throw new RuntimeException("Между ветками нет пересадки");
     }
 
     private Line getCurrentLine(String colorLine) {

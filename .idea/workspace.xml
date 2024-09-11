@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="fix: &#10;change return type for 'findStationByName' to Station">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/metro/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/metro/Metro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Metro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Runner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/metro/Station.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Station.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,6 +122,8 @@
         <item itemvalue="Application.Runner (1)" />
         <item itemvalue="Application.Runner" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Runner (1)" />
+        <item itemvalue="Application.Runner" />
       </list>
     </recent_temporary>
   </component>
@@ -208,16 +210,5 @@
     <MESSAGE value="fix: &#10;change return type for 'findStationByName' to Station" />
     <MESSAGE value="&lt;feature&gt; complete stage № 1" />
     <option name="LAST_COMMIT_MESSAGE" value="&lt;feature&gt; complete stage № 1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Runner.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
