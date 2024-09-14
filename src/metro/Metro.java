@@ -1,10 +1,7 @@
 package metro;
 
 import java.time.Duration;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class Metro {
     private final String city;
@@ -13,6 +10,39 @@ public class Metro {
     public Metro(String city) {
         this.city = city;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Metro metro = (Metro) o;
+        return Objects.equals(city, metro.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(city);
+    }
+
+    @Override
+    public String toString() {
+        return "Metro{" +
+                "city='" + city + '\'' +
+                ", lines=" + lines +
+                "}";
+    }
+
+//    /**
+//     * Считает прибыль по всем станциям
+//     */
+//    public void calculateIncome() {
+//        Map<LocalDate, BigDecimal> totalIncome = new HashMap<>();
+//        lines.stream().map()
+//    }
 
     /**
      * Создает линию/ветку метро, принимает в параметре 'ЦВЕТ' для новой ветки.
@@ -43,6 +73,9 @@ public class Metro {
         currentLine.addStation(newStation, null);
     }
 
+    /**
+     * Создает последнюю станцию в линии
+     */
     public void createLastStationToLine(String colorLine,
                                         String stationName,
                                         Duration timeDrivingFromPreviousStation,
@@ -76,27 +109,147 @@ public class Metro {
                 );
     }
 
+    /**
+     * 2.1
+     * Возвращает станцию пересадки между двумя ПЕРЕСЕКАЮЩИМИСЯ линями,
+     * если линии не пересекаются - выбрасывается исключение
+     */
     public Station getTransferStationBetweenLines(String startLineName,
                                                   String endLineName) {
-        Line lineStartTrip = getCurrentLine(startLineName);
-        Line lineEndTrip = getCurrentLine(endLineName);
+        Line lineStart = getCurrentLine(startLineName);
+        Line lineEnd = getCurrentLine(endLineName);
 
-        Station currentStation = lineStartTrip.getFirstStation();
+        Station currentStation = lineStart.getFirstStation();
         while (currentStation != null) {
             Set<Station> stations = currentStation.getTransferStations();
             if (stations != null) {
-                //ищем станцию пересадки на endLine
                 Optional<Station> foundTransferStation = stations.stream()
-                        .filter(station -> station.getLine().equals(lineEndTrip))
+                        .filter(station -> station.getLine().equals(lineEnd))
                         .findFirst();
-                //если станция существует, то возвращаем текущую станцию из первой ветки
                 if (foundTransferStation.isPresent()) {
                     return currentStation;
                 }
             }
             currentStation = currentStation.getNext();
         }
-        throw new RuntimeException("Между ветками нет пересадки");
+        throw new RuntimeException(String.format("Между линиями '%s'-'%s' нет пересадки", startLineName, endLineName));
+    }
+
+    //    2.5
+    public int transferCountBetweenStations(String startStationName, String endStationName) {
+        Station startStation = findStationByName(startStationName);
+        Station endStation = findStationByName(endStationName);
+
+        if (startStation.equals(endStation)) {
+            throw new RuntimeException("Начальная и конечная станции совпадают.");
+        }
+
+        if (startStation.getLine().equals(endStation.getLine())) {
+            return transferCountBetweenStationsOnTheLine(startStation, endStation);
+        }
+
+        return calculateTransfers(startStation, endStation);
+    }
+
+
+    /**
+     * Ищет количество пересадок если станции находятся на разных линиях
+     */
+    private int calculateTransfers(Station startStation, Station endStation) {
+        Queue<Station> aroundStationMetro = new LinkedList<>();
+        Set<Station> visited = new HashSet<>();
+        Map<Station, Integer> stationTransferCount = new HashMap<>();
+
+        aroundStationMetro.add(startStation);
+        stationTransferCount.put(startStation, 0);
+        visited.add(startStation);
+
+        while (!aroundStationMetro.isEmpty()) {
+            Station currentStation = aroundStationMetro.remove();
+            int currentRides = stationTransferCount.get(currentStation);
+
+            if (currentStation.getNext() != null && !visited.contains(currentStation.getNext())) {
+                aroundStationMetro.add(currentStation.getNext());
+                visited.add(currentStation.getNext());
+                stationTransferCount.put(currentStation.getNext(), currentRides + 1);
+            }
+            if (currentStation.getPrevious() != null && !visited.contains(currentStation.getPrevious())) {
+                aroundStationMetro.add(currentStation.getPrevious());
+                visited.add(currentStation.getPrevious());
+                stationTransferCount.put(currentStation.getPrevious(), currentRides + 1);
+            }
+
+            Set<Station> transferStations = currentStation.getTransferStations();
+            if (transferStations != null) {
+                for (Station transferStation : transferStations) {
+                    if (!visited.contains(transferStation)) {
+                        aroundStationMetro.add(transferStation);
+                        visited.add(transferStation);
+                        stationTransferCount.put(transferStation, currentRides);
+                    }
+                }
+            }
+
+            if (currentStation.equals(endStation)) {
+                return stationTransferCount.get(currentStation);
+            }
+        }
+
+        throw new RuntimeException(String.format("Путь между станциями '%s' и '%s' не найден",
+                startStation.getName(),
+                endStation.getName()));
+    }
+
+    /**
+     * 2.4
+     * Ищет количество перегонов между станциями на одной линии
+     */
+    private int transferCountBetweenStationsOnTheLine(Station startStation, Station endStation) {
+        int transferCountStraight = transferCountBetweenStationsStraight(startStation, endStation);
+        if (transferCountStraight != -1) {
+            return transferCountStraight;
+        }
+
+        int transferCountBack = transferCountBetweenStationsBack(startStation, endStation);
+        if (transferCountBack != -1) {
+            return transferCountBack;
+        }
+
+        throw new RuntimeException(String.format("Нет пути между станциями '%s' и '%s'",
+                startStation.getName(),
+                endStation.getName()));
+    }
+
+    /**
+     * 2.2
+     * Ищет количество перегонов между станциями на одной линии (обход прямо)
+     */
+    private int transferCountBetweenStationsStraight(Station startStation, Station endStation) {
+        int transferCounter = 0;
+        while (startStation.getNext() != null) {
+            transferCounter++;
+            if (startStation.getNext().equals(endStation)) {
+                return transferCounter;
+            }
+            startStation = startStation.getNext();
+        }
+        return -1;
+    }
+
+    /**
+     * 2.3
+     * Ищет количество перегонов между станциями на одной линии (обход назад)
+     */
+    private int transferCountBetweenStationsBack(Station startStation, Station endStation) {
+        int transferCounter = 0;
+        while (startStation.getPrevious() != null) {
+            transferCounter++;
+            if (startStation.getPrevious().equals(endStation)) {
+                return transferCounter;
+            }
+            startStation = startStation.getPrevious();
+        }
+        return -1;
     }
 
     private Line getCurrentLine(String colorLine) {
@@ -120,30 +273,5 @@ public class Metro {
                                        Line line,
                                        Set<Station> transferStations) {
         return new Station(stationName, line, this, transferStations);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Metro metro = (Metro) o;
-        return Objects.equals(city, metro.city);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(city);
-    }
-
-    @Override
-    public String toString() {
-        return "Metro{" +
-                "city='" + city + '\'' +
-                ", lines=" + lines +
-                "}";
     }
 }

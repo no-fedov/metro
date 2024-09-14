@@ -1,5 +1,7 @@
 package metro;
 
+import department.BookingOffice;
+
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Station {
     private final Line line;
     private final Metro metro;
     private Set<Station> transferStations;
+    private final BookingOffice bookingOffice = new BookingOffice();
 
     public Station(String name,
                    Line line,
@@ -50,6 +53,10 @@ public class Station {
 
     public Set<Station> getTransferStations() {
         return transferStations;
+    }
+
+    public BookingOffice getBookingOffice() {
+        return bookingOffice;
     }
 
     public void setPrevious(Station station) {

@@ -1,5 +1,4 @@
 import metro.Metro;
-import metro.Station;
 
 import java.time.Duration;
 import java.util.Set;
@@ -33,40 +32,57 @@ public class Runner {
 
 //        Переход между линиями будет происходить на станции Тяжмаш/Пермь 1.
 
+        String redColor = "Красная";
+        String blueColor = "Синяя";
+        String purpleColor = "Фиолетовая";
+
         Metro metro = new Metro("Пермь");
 
-        metro.createMetroLine("Красная");
+        metro.createMetroLine(redColor);
         //создаем первую станцию
-        metro.createFirstStationToLine("Красная", "Спортивная", null);
+        metro.createFirstStationToLine(redColor, "Спортивная", null);
         //создаем последующие станции
-        metro.createLastStationToLine("Красная", "Медведковская",
+        metro.createLastStationToLine(redColor, "Медведковская",
                 Duration.ofMinutes(2).plusSeconds(21), null);
-        metro.createLastStationToLine("Красная", "Молодежная",
+        metro.createLastStationToLine(redColor, "Молодежная",
                 Duration.ofMinutes(1).plusSeconds(58), null);
-        metro.createLastStationToLine("Красная", "Пермь 1",
+        metro.createLastStationToLine(redColor, "Пермь 1",
                 Duration.ofMinutes(3), null);
-        metro.createLastStationToLine("Красная", "Пермь 2",
+        metro.createLastStationToLine(redColor, "Пермь 2",
                 Duration.ofMinutes(2).plusSeconds(10), null);
-        metro.createLastStationToLine("Красная", "Дворец Культуры",
+        metro.createLastStationToLine(redColor, "Дворец Культуры",
                 Duration.ofMinutes(4).plusSeconds(26), null);
 
-        metro.createMetroLine("Синяя");
+        metro.createMetroLine(blueColor);
         //создаем первую станцию
-        metro.createFirstStationToLine("Синяя", "Пацанская", null);
+        metro.createFirstStationToLine(blueColor, "Пацанская", null);
         //создаем последующие станции
-        metro.createLastStationToLine("Синяя", "Улица Кирова",
+        metro.createLastStationToLine(blueColor, "Улица Кирова",
                 Duration.ofMinutes(1).plusSeconds(30), null);
-        metro.createLastStationToLine("Синяя", "Тяжмаш",
+        metro.createLastStationToLine(blueColor, "Тяжмаш",
                 Duration.ofMinutes(1).plusSeconds(47), Set.of(metro.findStationByName("Пермь 1")));
-        metro.createLastStationToLine("Синяя", "Нижнекамская",
+        metro.createLastStationToLine(blueColor, "Нижнекамская",
                 Duration.ofMinutes(3).plusSeconds(19), null);
-        metro.createLastStationToLine("Синяя", "Соборная",
+        metro.createLastStationToLine(blueColor, "Соборная",
                 Duration.ofMinutes(1).plusSeconds(48), null);
 
         System.out.println(metro);
 
-        Station stationBetweenLines = metro.getTransferStationBetweenLines("Красная", "Синяя");
+        metro.createMetroLine(purpleColor);
+        metro.createFirstStationToLine(purpleColor, "Вышневолотская", null);
 
-        System.out.println(stationBetweenLines);
+        metro.createLastStationToLine(purpleColor, "Волгодонская",
+                Duration.ofMinutes(1), Set.of(metro.findStationByName("Соборная")));
+
+        System.out.println(metro);
+
+        System.out.println(metro.transferCountBetweenStations("Соборная", "Волгодонская"));
+
+
+//        Station station = metro.getTransferStationBetweenLines("Красная","Желтый");
+
+
+//        int transfers = metro.transferCountBetweenStations("Пацанская","Соборная");
+//        System.out.println(transfers);
     }
 }

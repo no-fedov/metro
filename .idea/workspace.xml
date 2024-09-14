@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="fix: &#10;change return type for 'findStationByName' to Station">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
+    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Runner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/department/Office.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/department/BookingOffice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/department/Ticket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/metro/Metro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Metro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/metro/Station.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Station.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,22 +63,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Runner (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Runner.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;ticket-office&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/no_fedov/Desktop/java-explore-with-me&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Runner (1).executor": "Run",
+    "Application.Runner.executor": "Run",
+    "Java Scratch.Scratch.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "ticket-office",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/no_fedov/Desktop/ablazzing/ablazzing_module2",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JAVA"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="cheker" />
@@ -117,13 +125,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Scratch" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Scratch" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_5.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Runner (1)" />
+        <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="Application.Runner" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Runner (1)" />
-        <item itemvalue="Application.Runner" />
       </list>
     </recent_temporary>
   </component>
@@ -176,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725980098355</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline">
+      <option name="closed" value="true" />
+      <created>1726080018915</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726080018915</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -209,6 +232,18 @@
     <MESSAGE value="refactor Station class nethod simplify the method (setTransferStations)" />
     <MESSAGE value="fix: &#10;change return type for 'findStationByName' to Station" />
     <MESSAGE value="&lt;feature&gt; complete stage № 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="&lt;feature&gt; complete stage № 1" />
+    <MESSAGE value="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Runner.java</url>
+          <line>78</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
