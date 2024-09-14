@@ -3,6 +3,7 @@ package metro;
 import department.BookingOffice;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -94,6 +95,11 @@ public class Station {
                 "name='" + name + '\'' +
                 ", changesLine=" + getTransferLines() +
                 '}';
+    }
+
+    public void sellTicket(LocalDate date, String startStationName, String endStationName) {
+        int transferCount = metro.transferCountBetweenStations(startStationName, endStationName);
+        bookingOffice.saleTicket(date, transferCount);
     }
 
     private void setTransferStations(Set<Station> transferStations) {

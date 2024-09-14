@@ -151,7 +151,6 @@ public class Metro {
         return calculateTransfers(startStation, endStation);
     }
 
-
     /**
      * Ищет количество пересадок если станции находятся на разных линиях
      */

@@ -9,7 +9,7 @@ public class BookingOffice {
     private static final BigDecimal SINGLE_FEE = new BigDecimal(20);
     private static final BigDecimal PRICE_FOR_TRANSFER = new BigDecimal(5);
 
-    private Map<LocalDate, BigDecimal> income = new HashMap<>();
+    private final Map<LocalDate, BigDecimal> income = new HashMap<>();
 
     public void saleTicket(LocalDate date, int transferCount) {
         BigDecimal price = new BigDecimal(transferCount)
