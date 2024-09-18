@@ -3,6 +3,7 @@ package metro;
 import department.SeasonTicket;
 import department.SeasonTicketUtil;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
@@ -40,14 +41,6 @@ public class Metro {
                 ", lines=" + lines +
                 "}";
     }
-
-//    /**
-//     * Считает прибыль по всем станциям
-//     */
-//    public void calculateIncome() {
-//        Map<LocalDate, BigDecimal> totalIncome = new HashMap<>();
-//        lines.stream().map()
-//    }
 
     /**
      * Создает линию/ветку метро, принимает в параметре 'ЦВЕТ' для новой ветки.
@@ -167,6 +160,20 @@ public class Metro {
     public boolean checkSeasonTicket(String seasonTicketId, LocalDate dateVerification) {
         return getSeasonTicketById(seasonTicketId)
                 .isActive(dateVerification);
+    }
+
+    /**
+     * Печатает прибыль со всех станций
+     */
+    public void printTotalIncome() {
+        Map<LocalDate, BigDecimal> totalIncome = new HashMap<>();
+        lines.stream().flatMap(line -> line.getStations().values().stream())
+                .flatMap(station -> station.getBookingOffice().getIncome().entrySet().stream())
+                .forEach(entry -> totalIncome.put(entry.getKey(),
+                                totalIncome.getOrDefault(entry.getKey(), BigDecimal.ZERO).add(entry.getValue())
+                        )
+                );
+        System.out.println(totalIncome);
     }
 
     //    2.5

@@ -2,6 +2,9 @@ package department;
 
 import java.time.LocalDate;
 
+/**
+ * Абонемент
+ */
 public class SeasonTicket {
     private static int VALIDITY_PERIOD = 1;
     private final String id;

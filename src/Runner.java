@@ -82,5 +82,7 @@ public class Runner {
         System.out.println(metro);
 
         transferStationBetweenBlueAndRedLines.sellSeasonTicket("Пермь 1", LocalDate.now());
+
+        metro.printTotalIncome();
     }
 }

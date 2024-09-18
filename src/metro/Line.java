@@ -37,20 +37,14 @@ public class Line {
 
     public void addStation(Station station, Duration timeDrivingFromPreviousStation) {
         if (firstStation == null) {
-            {
-                // точно ли это нужно?
-                station.setNext(null);
-                station.setPrevious(null);
-            }
+            station.setNext(null);
+            station.setPrevious(null);
             firstStation = station;
         } else {
             lastStation.setNext(station);
             lastStation.setTimeDrivingToNextStation(timeDrivingFromPreviousStation);
             station.setPrevious(lastStation);
-            {
-                // точно ли это нужно?
-                station.setNext(null);
-            }
+            station.setNext(null);
         }
         lastStation = station;
         stations.put(station.getName(), station);
@@ -62,6 +56,10 @@ public class Line {
 
     public boolean hasStationWithName(String stationName) {
         return stations.containsKey(stationName);
+    }
+
+    public Map<String, Station> getStations() {
+        return new HashMap<>(stations);
     }
 
     @Override

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline">
+    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="&lt;feature&gt; complete 3.3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Runner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/department/BookingOffice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/department/BookingOffice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/department/SeasonTicketUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/department/SeasonTicketUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/department/SeasonTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/department/SeasonTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/metro/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Line.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/metro/Metro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Metro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/metro/Station.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Station.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +90,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SeasonTicketIdGenerator">
+  <component name="RunManager" selected="Application.Runner (1)">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="metro.Main" />
       <module name="metro" />
@@ -148,8 +146,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SeasonTicketIdGenerator" />
         <item itemvalue="Application.Runner (1)" />
+        <item itemvalue="Application.SeasonTicketIdGenerator" />
         <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="Application.Runner" />
         <item itemvalue="Application.Main" />
@@ -213,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726080018915</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="&lt;feature&gt; complete 3.3">
+      <option name="closed" value="true" />
+      <created>1726645201187</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1726645201187</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,7 +253,8 @@
     <MESSAGE value="fix: &#10;change return type for 'findStationByName' to Station" />
     <MESSAGE value="&lt;feature&gt; complete stage № 1" />
     <MESSAGE value="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline" />
-    <option name="LAST_COMMIT_MESSAGE" value="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline" />
+    <MESSAGE value="&lt;feature&gt; complete 3.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;feature&gt; complete 3.3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
