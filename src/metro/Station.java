@@ -1,6 +1,7 @@
 package metro;
 
 import department.BookingOffice;
+import department.SeasonTicket;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -97,11 +98,45 @@ public class Station {
                 '}';
     }
 
+    /**
+     * Продать разовую поездку (увеличивает доход в кассе)
+     *
+     * @param date             - дата продажи (не понятно зачем ее передавать, спросить у Юрия)
+     * @param startStationName - станция отправления
+     * @param endStationName   - конечная станция
+     */
     public void sellTicket(LocalDate date, String startStationName, String endStationName) {
         int transferCount = metro.transferCountBetweenStations(startStationName, endStationName);
         bookingOffice.saleTicket(date, transferCount);
     }
 
+    /**
+     * Продать месячный абонемент на поездки (увеличивает доход в кассе)
+     *
+     * @param stationName - имя станции на которой продали
+     * @param saleDate    - дата продажи
+     * @return - возвращает проданный абонемент
+     * (не понимаю для чего тут должны быть параметры у метода, я думал передавать текущее имя станции
+     * и текущую дату, спросить у Юрия пункт 3.1)
+     */
+    public SeasonTicket sellSeasonTicket(String stationName, LocalDate saleDate) {
+        this.metro.findStationByName(stationName);
+        SeasonTicket newSeasonTicket = this.bookingOffice.saleSeasonTicket(stationName, saleDate);
+        this.metro.addSeasonTicket(newSeasonTicket);
+        return newSeasonTicket;
+    }
+
+    /**
+     * Продлить абонемент (увеличивает доход в кассе)
+     */
+    public void extendSeasonTicket(String seasonTicketId, LocalDate saleDate) {
+        SeasonTicket currentSeasonTicket = this.metro.getSeasonTicketById(seasonTicketId);
+        bookingOffice.extendSeasonTicket(currentSeasonTicket, saleDate);
+    }
+
+    /**
+     * Устанавливает для текущей станции станции перехода на другие линии
+     */
     private void setTransferStations(Set<Station> transferStations) {
         this.transferStations = transferStations;
         if (transferStations == null) {
@@ -115,6 +150,9 @@ public class Station {
         });
     }
 
+    /**
+     * Возвращает цвета линий/веток метро на которые можно перейти с текущей станции
+     */
     private String getTransferLines() {
         if (transferStations == null) {
             return null;

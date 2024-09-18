@@ -1,6 +1,8 @@
 import metro.Metro;
+import metro.Station;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Runner {
@@ -59,8 +61,11 @@ public class Runner {
         //создаем последующие станции
         metro.createLastStationToLine(blueColor, "Улица Кирова",
                 Duration.ofMinutes(1).plusSeconds(30), null);
+
+        Station transferStationBetweenBlueAndRedLines = metro.findStationByName("Пермь 1");
+
         metro.createLastStationToLine(blueColor, "Тяжмаш",
-                Duration.ofMinutes(1).plusSeconds(47), Set.of(metro.findStationByName("Пермь 1")));
+                Duration.ofMinutes(1).plusSeconds(47), Set.of(transferStationBetweenBlueAndRedLines));
         metro.createLastStationToLine(blueColor, "Нижнекамская",
                 Duration.ofMinutes(3).plusSeconds(19), null);
         metro.createLastStationToLine(blueColor, "Соборная",
@@ -76,13 +81,6 @@ public class Runner {
 
         System.out.println(metro);
 
-        System.out.println(metro.transferCountBetweenStations("Соборная", "Волгодонская"));
-
-
-//        Station station = metro.getTransferStationBetweenLines("Красная","Желтый");
-
-
-//        int transfers = metro.transferCountBetweenStations("Пацанская","Соборная");
-//        System.out.println(transfers);
+        transferStationBetweenBlueAndRedLines.sellSeasonTicket("Пермь 1", LocalDate.now());
     }
 }

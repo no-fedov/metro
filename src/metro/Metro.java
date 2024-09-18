@@ -1,11 +1,16 @@
 package metro;
 
+import department.SeasonTicket;
+import department.SeasonTicketUtil;
+
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Metro {
     private final String city;
     private final Set<Line> lines = new HashSet<>();
+    private final List<SeasonTicket> seasonTickets = new ArrayList<>();
 
     public Metro(String city) {
         this.city = city;
@@ -132,7 +137,36 @@ public class Metro {
             }
             currentStation = currentStation.getNext();
         }
-        throw new RuntimeException(String.format("Между линиями '%s'-'%s' нет пересадки", startLineName, endLineName));
+        throw new RuntimeException(String.format("Между линиями '%s'-'%s' нет станции пересадки",
+                startLineName,
+                endLineName));
+    }
+
+    /**
+     * Добавить абонемент в базу данных
+     */
+    public void addSeasonTicket(SeasonTicket seasonTicket) {
+        seasonTickets.add(seasonTicket);
+    }
+
+    /**
+     * Находит билет по его номеру
+     */
+    public SeasonTicket getSeasonTicketById(String seasonTicketId) {
+        int number = SeasonTicketUtil.excludeNumberFromId(seasonTicketId);
+        return seasonTickets.get(number);
+    }
+
+    /**
+     * Проверяет действительность абонемента
+     *
+     * @param seasonTicketId   - номер билета
+     * @param dateVerification - дата проверки
+     * @return - true - билет действителен, false - билет не действителен.
+     */
+    public boolean checkSeasonTicket(String seasonTicketId, LocalDate dateVerification) {
+        return getSeasonTicketById(seasonTicketId)
+                .isActive(dateVerification);
     }
 
     //    2.5
@@ -200,7 +234,6 @@ public class Metro {
     }
 
     /**
-     * 2.4
      * Ищет количество перегонов между станциями на одной линии
      */
     private int transferCountBetweenStationsOnTheLine(Station startStation, Station endStation) {
@@ -214,13 +247,12 @@ public class Metro {
             return transferCountBack;
         }
 
-        throw new RuntimeException(String.format("Нет пути между станциями '%s' и '%s'",
+        throw new RuntimeException(String.format("Путь между станциями '%s' и '%s' закрыт.",
                 startStation.getName(),
                 endStation.getName()));
     }
 
     /**
-     * 2.2
      * Ищет количество перегонов между станциями на одной линии (обход прямо)
      */
     private int transferCountBetweenStationsStraight(Station startStation, Station endStation) {
@@ -236,7 +268,6 @@ public class Metro {
     }
 
     /**
-     * 2.3
      * Ищет количество перегонов между станциями на одной линии (обход назад)
      */
     private int transferCountBetweenStationsBack(Station startStation, Station endStation) {
@@ -251,6 +282,9 @@ public class Metro {
         return -1;
     }
 
+    /**
+     * Возвращает линию/ветку метро по ее цвету
+     */
     private Line getCurrentLine(String colorLine) {
         Line referenceLine = new Line(colorLine, this);
         return lines.stream()
@@ -259,6 +293,9 @@ public class Metro {
                 .orElseThrow(() -> new RuntimeException(String.format("Нет линии данного цвета: %s", colorLine)));
     }
 
+    /**
+     * Проверяет уникальность имени станции
+     */
     private void checkStationDuplicates(String stationName) {
         lines.forEach(line -> {
             if (line.hasStationWithName(stationName)) {
@@ -268,6 +305,9 @@ public class Metro {
         });
     }
 
+    /**
+     * Создает станцию для добавления в линию в текущем метро
+     */
     private Station createStationToAdd(String stationName,
                                        Line line,
                                        Set<Station> transferStations) {
