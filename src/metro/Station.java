@@ -2,6 +2,7 @@ package metro;
 
 import department.BookingOffice;
 import department.SeasonTicket;
+import exception.StationActionException;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -27,6 +28,9 @@ public class Station {
                    Line line,
                    Metro metro,
                    Set<Station> transferStations) {
+        if (name == null || name.isBlank() || line == null || metro == null) {
+            throw new StationActionException("Ошибка инстанцирования станции");
+        }
         this.name = name;
         this.line = line;
         this.metro = metro;
