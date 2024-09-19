@@ -1,5 +1,7 @@
 package metro;
 
+import exception.LineActionException;
+
 import java.time.Duration;
 import java.util.*;
 
@@ -15,7 +17,7 @@ public class Line {
 
     public Line(String color, Metro metro) {
         if (color == null || color.isBlank() || metro == null) {
-            throw new RuntimeException("Ошибка инициализации объекта Line"
+            throw new LineActionException("Ошибка инициализации объекта Line"
                     + " (параметры конструктора не должны быть пустыми)");
         }
         this.color = color;
@@ -89,10 +91,10 @@ public class Line {
     }
 
     private List<Station> getCorrectSequenceStations() {
-        List<Station> stationsSequence = new ArrayList<>();
         if (stations.isEmpty()) {
-            return stationsSequence;
+            return List.of();
         }
+        List<Station> stationsSequence = new ArrayList<>();
         Station currentStation = firstStation;
         while (currentStation.getNext() != null) {
             stationsSequence.add(currentStation);
