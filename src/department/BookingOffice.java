@@ -1,5 +1,8 @@
 package department;
 
+import metro.Metro;
+import metro.Station;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,7 +17,14 @@ public class BookingOffice {
     private static final BigDecimal PRICE_SEASON_TICKET = new BigDecimal(3000);
     private static final BigDecimal PRICE_RENEWAL_SEASON_TICKET = new BigDecimal(3000);
 
+    private final Metro metro;
+    private final Station station;
     private final Map<LocalDate, BigDecimal> income = new HashMap<>();
+
+    public BookingOffice(Station station, Metro metro) {
+        this.station = station;
+        this.metro = metro;
+    }
 
     public Map<LocalDate, BigDecimal> getIncome() {
         return new HashMap<>(income);
@@ -43,6 +53,7 @@ public class BookingOffice {
     public SeasonTicket saleSeasonTicket(String stationName, LocalDate saleDate) {
         String ticketId = SeasonTicketUtil.generateId();
         SeasonTicket seasonTicket = new SeasonTicket(ticketId, stationName, saleDate);
+        this.metro.addSeasonTicket(seasonTicket);
         addIncome(saleDate, PRICE_SEASON_TICKET);
         return seasonTicket;
     }
@@ -50,12 +61,13 @@ public class BookingOffice {
     /**
      * Продлить срок действия абонемента (увеличивает доход в касссе)
      *
-     * @param seasonTicket - номер абонемента
+     * @param seasonTicketId - номер абонемента
      * @param saleDate     - дата покупки продления
      */
-    public void extendSeasonTicket(SeasonTicket seasonTicket, LocalDate saleDate) {
+    public void extendSeasonTicket(String seasonTicketId, LocalDate saleDate) {
+        SeasonTicket currentSeasonTicket = this.metro.getSeasonTicketById(seasonTicketId);
+        currentSeasonTicket.setSaleDate(saleDate);
         addIncome(saleDate, PRICE_RENEWAL_SEASON_TICKET);
-        seasonTicket.setSaleDate(saleDate);
     }
 
     /**

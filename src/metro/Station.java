@@ -14,14 +14,14 @@ import java.util.Set;
  * Станция метро
  */
 public class Station {
-    private String name;
+    private final String name;
     private Station previous;
     private Station next;
     private Duration timeDrivingToNextStation;
     private final Line line;
     private final Metro metro;
     private Set<Station> transferStations;
-    private final BookingOffice bookingOffice = new BookingOffice();
+    private final BookingOffice bookingOffice;
 
     public Station(String name,
                    Line line,
@@ -31,6 +31,7 @@ public class Station {
         this.line = line;
         this.metro = metro;
         this.setTransferStations(transferStations);
+        this.bookingOffice = new BookingOffice(this, metro);
     }
 
     public String getName() {
@@ -101,7 +102,8 @@ public class Station {
     /**
      * Продать разовую поездку (увеличивает доход в кассе)
      *
-     * @param date             - дата продажи (не понятно зачем ее передавать, спросить у Юрия)
+     * @param date             - дата продажи (не понятно зачем ее передавать (наверное для тестирования),
+     *                         спросить у Юрия)
      * @param startStationName - станция отправления
      * @param endStationName   - конечная станция
      */
@@ -121,17 +123,14 @@ public class Station {
      */
     public SeasonTicket sellSeasonTicket(String stationName, LocalDate saleDate) {
         this.metro.findStationByName(stationName);
-        SeasonTicket newSeasonTicket = this.bookingOffice.saleSeasonTicket(stationName, saleDate);
-        this.metro.addSeasonTicket(newSeasonTicket);
-        return newSeasonTicket;
+        return this.bookingOffice.saleSeasonTicket(stationName, saleDate);
     }
 
     /**
      * Продлить абонемент (увеличивает доход в кассе)
      */
     public void extendSeasonTicket(String seasonTicketId, LocalDate saleDate) {
-        SeasonTicket currentSeasonTicket = this.metro.getSeasonTicketById(seasonTicketId);
-        bookingOffice.extendSeasonTicket(currentSeasonTicket, saleDate);
+        bookingOffice.extendSeasonTicket(seasonTicketId, saleDate);
     }
 
     /**
