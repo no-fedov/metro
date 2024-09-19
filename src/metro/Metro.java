@@ -220,7 +220,7 @@ public class Metro {
                     currentStation.getNext(), currentRides + 1);
 
             calculateTransferToCurrentStation(aroundStationMetro, visited, stationTransferCount,
-                    currentStation.getNext(), currentRides + 1);
+                    currentStation.getPrevious(), currentRides + 1);
 
             Set<Station> transferStations = currentStation.getTransferStations();
             if (transferStations != null) {
