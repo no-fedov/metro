@@ -1,5 +1,7 @@
 package metro;
 
+import exception.LineActionException;
+
 import java.time.Duration;
 import java.util.*;
 
@@ -15,7 +17,7 @@ public class Line {
 
     public Line(String color, Metro metro) {
         if (color == null || color.isBlank() || metro == null) {
-            throw new RuntimeException("Ошибка инициализации объекта Line"
+            throw new LineActionException("Ошибка инициализации объекта Line"
                     + " (параметры конструктора не должны быть пустыми)");
         }
         this.color = color;
@@ -37,20 +39,14 @@ public class Line {
 
     public void addStation(Station station, Duration timeDrivingFromPreviousStation) {
         if (firstStation == null) {
-            {
-                // точно ли это нужно?
-                station.setNext(null);
-                station.setPrevious(null);
-            }
+            station.setNext(null);
+            station.setPrevious(null);
             firstStation = station;
         } else {
             lastStation.setNext(station);
             lastStation.setTimeDrivingToNextStation(timeDrivingFromPreviousStation);
             station.setPrevious(lastStation);
-            {
-                // точно ли это нужно?
-                station.setNext(null);
-            }
+            station.setNext(null);
         }
         lastStation = station;
         stations.put(station.getName(), station);
@@ -62,6 +58,10 @@ public class Line {
 
     public boolean hasStationWithName(String stationName) {
         return stations.containsKey(stationName);
+    }
+
+    public Map<String, Station> getStations() {
+        return new HashMap<>(stations);
     }
 
     @Override
@@ -90,11 +90,11 @@ public class Line {
         return Objects.hash(color, metro);
     }
 
-    public List<Station> getCorrectSequenceStations() {
-        List<Station> stationsSequence = new ArrayList<>();
+    private List<Station> getCorrectSequenceStations() {
         if (stations.isEmpty()) {
-            return stationsSequence;
+            return List.of();
         }
+        List<Station> stationsSequence = new ArrayList<>();
         Station currentStation = firstStation;
         while (currentStation.getNext() != null) {
             stationsSequence.add(currentStation);

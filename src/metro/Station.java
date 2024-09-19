@@ -1,6 +1,11 @@
 package metro;
 
+import department.BookingOffice;
+import department.SeasonTicket;
+import exception.StationActionException;
+
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -10,22 +15,27 @@ import java.util.Set;
  * Станция метро
  */
 public class Station {
-    private String name;
+    private final String name;
     private Station previous;
     private Station next;
     private Duration timeDrivingToNextStation;
     private final Line line;
     private final Metro metro;
     private Set<Station> transferStations;
+    private final BookingOffice bookingOffice;
 
     public Station(String name,
                    Line line,
                    Metro metro,
                    Set<Station> transferStations) {
+        if (name == null || name.isBlank() || line == null || metro == null) {
+            throw new StationActionException("Ошибка инстанцирования станции");
+        }
         this.name = name;
         this.line = line;
         this.metro = metro;
         this.setTransferStations(transferStations);
+        this.bookingOffice = new BookingOffice(this, metro);
     }
 
     public String getName() {
@@ -46,6 +56,14 @@ public class Station {
 
     public Station getNext() {
         return next;
+    }
+
+    public Set<Station> getTransferStations() {
+        return transferStations;
+    }
+
+    public BookingOffice getBookingOffice() {
+        return bookingOffice;
     }
 
     public void setPrevious(Station station) {
@@ -85,6 +103,43 @@ public class Station {
                 '}';
     }
 
+    /**
+     * Продать разовую поездку (увеличивает доход в кассе)
+     *
+     * @param date             - дата продажи (не понятно зачем ее передавать (наверное для тестирования),
+     *                         спросить у Юрия)
+     * @param startStationName - станция отправления
+     * @param endStationName   - конечная станция
+     */
+    public void sellTicket(LocalDate date, String startStationName, String endStationName) {
+        int transferCount = metro.transferCountBetweenStations(startStationName, endStationName);
+        bookingOffice.saleTicket(date, transferCount);
+    }
+
+    /**
+     * Продать месячный абонемент на поездки (увеличивает доход в кассе)
+     *
+     * @param stationName - имя станции на которой продали
+     * @param saleDate    - дата продажи
+     * @return - возвращает проданный абонемент
+     * (не понимаю для чего тут должны быть параметры у метода, я думал передавать текущее имя станции
+     * и текущую дату, спросить у Юрия пункт 3.1)
+     */
+    public SeasonTicket sellSeasonTicket(String stationName, LocalDate saleDate) {
+        this.metro.findStationByName(stationName);
+        return this.bookingOffice.saleSeasonTicket(stationName, saleDate);
+    }
+
+    /**
+     * Продлить абонемент (увеличивает доход в кассе)
+     */
+    public void extendSeasonTicket(String seasonTicketId, LocalDate saleDate) {
+        bookingOffice.extendSeasonTicket(seasonTicketId, saleDate);
+    }
+
+    /**
+     * Устанавливает для текущей станции станции перехода на другие линии
+     */
     private void setTransferStations(Set<Station> transferStations) {
         this.transferStations = transferStations;
         if (transferStations == null) {
@@ -98,6 +153,9 @@ public class Station {
         });
     }
 
+    /**
+     * Возвращает цвета линий/веток метро на которые можно перейти с текущей станции
+     */
     private String getTransferLines() {
         if (transferStations == null) {
             return null;

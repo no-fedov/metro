@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="refactor Station class nethod simplify the method (setTransferStations)">
+    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="&lt;feature&gt; add validation to constructor in Station">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Runner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/metro/Metro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Metro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ticket-office" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -30,6 +34,16 @@
     &quot;assignee&quot;: &quot;no-fedov&quot;
   }
 }</component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="не работает свзяь между линиями метро" />
+        <option name="rewordedMessage" value="&lt;feature&gt; complete stage № 1" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="5b33b98249c45451db09d0fbfa32742f78f7db80" />
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/no-fedov/metro.git&quot;,
@@ -45,22 +59,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.Runner (1).executor": "Run",
-    "Application.Runner.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/no_fedov/Desktop/yandex_homework/diplom/java-explore-with-me",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Runner (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Runner.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SeasonTicketIdGenerator.executor&quot;: &quot;Run&quot;,
+    &quot;Java Scratch.Scratch.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-subscription&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/no_fedov/Desktop/ablazzing/ablazzing_module2&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JAVA&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="cheker" />
@@ -101,13 +123,42 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SeasonTicketIdGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="department.SeasonTicketIdGenerator" />
+      <module name="metro" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="department.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scratch" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Scratch" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_5.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Runner (1)" />
+        <item itemvalue="Application.SeasonTicketIdGenerator" />
+        <item itemvalue="Java Scratch.Scratch" />
         <item itemvalue="Application.Runner" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-96c0d24d" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -150,23 +201,145 @@
       <option name="project" value="LOCAL" />
       <updated>1725979453845</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix: &#10;change return type for 'findStationByName' to Station">
+      <option name="closed" value="true" />
+      <created>1725980098355</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725980098355</updated>
+    </task>
+    <task id="LOCAL-00006" summary="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline">
+      <option name="closed" value="true" />
+      <created>1726080018915</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726080018915</updated>
+    </task>
+    <task id="LOCAL-00007" summary="&lt;feature&gt; complete 3.3">
+      <option name="closed" value="true" />
+      <created>1726645201187</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1726645201187</updated>
+    </task>
+    <task id="LOCAL-00008" summary="metro complete">
+      <option name="closed" value="true" />
+      <created>1726648646274</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1726648646274</updated>
+    </task>
+    <task id="LOCAL-00009" summary="metro complete">
+      <option name="closed" value="true" />
+      <created>1726648759037</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1726648759037</updated>
+    </task>
+    <task id="LOCAL-00010" summary="&lt;fix&gt; split logic for seasontickt between Station and BookingOffice">
+      <option name="closed" value="true" />
+      <created>1726735377136</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1726735377136</updated>
+    </task>
+    <task id="LOCAL-00011" summary="&lt;fix&gt; generatorId for seasonTickets">
+      <option name="closed" value="true" />
+      <created>1726737399927</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1726737399927</updated>
+    </task>
+    <task id="LOCAL-00012" summary="&lt;fix&gt; generatorId for seasonTickets">
+      <option name="closed" value="true" />
+      <created>1726737817396</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1726737817396</updated>
+    </task>
+    <task id="LOCAL-00013" summary="&lt;fix&gt; add exception for initialize Line">
+      <option name="closed" value="true" />
+      <created>1726737849846</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1726737849846</updated>
+    </task>
+    <task id="LOCAL-00014" summary="&lt;fix&gt; replace RuntimeException to CustomException">
+      <option name="closed" value="true" />
+      <created>1726738403166</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1726738403166</updated>
+    </task>
+    <task id="LOCAL-00015" summary="&lt;feature&gt; add validation to constructor in Station">
+      <option name="closed" value="true" />
+      <created>1726738599620</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1726738599620</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="ticket-office" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="нужно поработать с выводом. Думаю как передавать станции для перехода..." />
     <MESSAGE value="не работает свзяь между линиями метро" />
     <MESSAGE value="complete first stage" />
     <MESSAGE value="refactor Station class nethod simplify the method (setTransferStations)" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor Station class nethod simplify the method (setTransferStations)" />
+    <MESSAGE value="fix: &#10;change return type for 'findStationByName' to Station" />
+    <MESSAGE value="&lt;feature&gt; complete stage № 1" />
+    <MESSAGE value="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline" />
+    <MESSAGE value="&lt;feature&gt; complete 3.3" />
+    <MESSAGE value="metro complete" />
+    <MESSAGE value="&lt;fix&gt; generatorId for seasonTicket" />
+    <MESSAGE value="&lt;fix&gt; split logic for seasontickt between Station and BookingOffice" />
+    <MESSAGE value="&lt;fix&gt; generatorId for seasonTickets" />
+    <MESSAGE value="&lt;fix&gt; add exception for initialize Line" />
+    <MESSAGE value="&lt;fix&gt; replace RuntimeException to CustomException" />
+    <MESSAGE value="&lt;feature&gt; add validation to constructor in Station" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;feature&gt; add validation to constructor in Station" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Runner.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="21" />
+          <line>83</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
