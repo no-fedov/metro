@@ -212,36 +212,43 @@ public class Metro {
             Station currentStation = aroundStationMetro.remove();
             int currentRides = stationTransferCount.get(currentStation);
 
-            if (currentStation.getNext() != null && !visited.contains(currentStation.getNext())) {
-                aroundStationMetro.add(currentStation.getNext());
-                visited.add(currentStation.getNext());
-                stationTransferCount.put(currentStation.getNext(), currentRides + 1);
+            if (currentStation.equals(endStation)) {
+                return stationTransferCount.get(currentStation);
             }
-            if (currentStation.getPrevious() != null && !visited.contains(currentStation.getPrevious())) {
-                aroundStationMetro.add(currentStation.getPrevious());
-                visited.add(currentStation.getPrevious());
-                stationTransferCount.put(currentStation.getPrevious(), currentRides + 1);
-            }
+
+            calculateTransferToCurrentStation(aroundStationMetro, visited, stationTransferCount,
+                    currentStation.getNext(), currentRides + 1);
+
+            calculateTransferToCurrentStation(aroundStationMetro, visited, stationTransferCount,
+                    currentStation.getNext(), currentRides + 1);
 
             Set<Station> transferStations = currentStation.getTransferStations();
             if (transferStations != null) {
                 for (Station transferStation : transferStations) {
-                    if (!visited.contains(transferStation)) {
-                        aroundStationMetro.add(transferStation);
-                        visited.add(transferStation);
-                        stationTransferCount.put(transferStation, currentRides);
-                    }
+                    calculateTransferToCurrentStation(aroundStationMetro, visited, stationTransferCount,
+                            transferStation, currentRides);
                 }
-            }
-
-            if (currentStation.equals(endStation)) {
-                return stationTransferCount.get(currentStation);
             }
         }
 
         throw new TransferException(String.format("Путь между станциями '%s' и '%s' не найден",
                 startStation.getName(),
                 endStation.getName()));
+    }
+
+    /**
+     * Посчитать количество перегонов до текуцщей станции
+     */
+    private void calculateTransferToCurrentStation(Queue<Station> queue,
+                                                   Set<Station> visited,
+                                                   Map<Station, Integer> stationTransferCount,
+                                                   Station currentStation,
+                                                   int transferCount) {
+        if (currentStation != null && !visited.contains(currentStation)) {
+            queue.add(currentStation);
+            visited.add(currentStation);
+            stationTransferCount.put(currentStation, transferCount);
+        }
     }
 
     /**

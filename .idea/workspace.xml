@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="&lt;fix&gt; split logic for seasontickt between Station and BookingOffice">
+    <list default="true" id="ff5a1c8d-e612-46d8-8e49-f414697dd0f5" name="Changes" comment="&lt;feature&gt; add validation to constructor in Station">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/department/SeasonTicketUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/department/SeasonTicketUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/metro/Metro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/metro/Metro.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +249,47 @@
       <option name="project" value="LOCAL" />
       <updated>1726735377136</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="&lt;fix&gt; generatorId for seasonTickets">
+      <option name="closed" value="true" />
+      <created>1726737399927</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1726737399927</updated>
+    </task>
+    <task id="LOCAL-00012" summary="&lt;fix&gt; generatorId for seasonTickets">
+      <option name="closed" value="true" />
+      <created>1726737817396</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1726737817396</updated>
+    </task>
+    <task id="LOCAL-00013" summary="&lt;fix&gt; add exception for initialize Line">
+      <option name="closed" value="true" />
+      <created>1726737849846</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1726737849846</updated>
+    </task>
+    <task id="LOCAL-00014" summary="&lt;fix&gt; replace RuntimeException to CustomException">
+      <option name="closed" value="true" />
+      <created>1726738403166</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1726738403166</updated>
+    </task>
+    <task id="LOCAL-00015" summary="&lt;feature&gt; add validation to constructor in Station">
+      <option name="closed" value="true" />
+      <created>1726738599620</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1726738599620</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,8 +325,13 @@
     <MESSAGE value="&lt;fix&gt; method 'findTransferStation' between lines, change return to station from startline" />
     <MESSAGE value="&lt;feature&gt; complete 3.3" />
     <MESSAGE value="metro complete" />
+    <MESSAGE value="&lt;fix&gt; generatorId for seasonTicket" />
     <MESSAGE value="&lt;fix&gt; split logic for seasontickt between Station and BookingOffice" />
-    <option name="LAST_COMMIT_MESSAGE" value="&lt;fix&gt; split logic for seasontickt between Station and BookingOffice" />
+    <MESSAGE value="&lt;fix&gt; generatorId for seasonTickets" />
+    <MESSAGE value="&lt;fix&gt; add exception for initialize Line" />
+    <MESSAGE value="&lt;fix&gt; replace RuntimeException to CustomException" />
+    <MESSAGE value="&lt;feature&gt; add validation to constructor in Station" />
+    <option name="LAST_COMMIT_MESSAGE" value="&lt;feature&gt; add validation to constructor in Station" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
