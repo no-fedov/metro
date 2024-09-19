@@ -2,6 +2,10 @@ package metro;
 
 import department.SeasonTicket;
 import department.SeasonTicketUtil;
+import exception.MetroActionException;
+import exception.NotFoundException;
+import exception.StationActionException;
+import exception.TransferException;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -49,7 +53,7 @@ public class Metro {
     public void createMetroLine(String colorLine) {
         Line line = new Line(colorLine, this);
         if (!lines.add(line)) {
-            throw new RuntimeException(String.format("Такой цвет линии '%s' уже есть", colorLine));
+            throw new MetroActionException(String.format("Такой цвет линии '%s' уже есть", colorLine));
         }
     }
 
@@ -64,7 +68,7 @@ public class Metro {
         checkStationDuplicates(stationName);
 
         if (currentLine.getFirstStation() != null) {
-            throw new RuntimeException("Линия уже содержит первую станцию");
+            throw new MetroActionException("Линия уже содержит первую станцию");
         }
 
         Station newStation = createStationToAdd(stationName, currentLine, transferStations);
@@ -82,11 +86,11 @@ public class Metro {
         checkStationDuplicates(stationName);
 
         if (currentLine.getLastStation() != null && currentLine.getLastStation().getNext() != null) {
-            throw new RuntimeException("Пердыдущая станция должна существовать и не должна иметь следующей станции");
+            throw new MetroActionException("Пердыдущая станция должна существовать и не должна иметь следующей станции");
         }
 
         if (timeDrivingFromPreviousStation == null || timeDrivingFromPreviousStation.compareTo(Duration.ZERO) <= 0) {
-            throw new RuntimeException("Некорректно задано время перегона");
+            throw new StationActionException("Некорректно задано время перегона");
         }
 
         Station newStation = createStationToAdd(stationName, currentLine, transferStations);
@@ -101,7 +105,7 @@ public class Metro {
                 .map(line -> line.getStationByName(stationName))
                 .filter(Objects::nonNull)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException(
+                .orElseThrow(() -> new NotFoundException(
                                 String.format("Станции с именем '%s' еще не существует", stationName)
                         )
                 );
@@ -130,7 +134,7 @@ public class Metro {
             }
             currentStation = currentStation.getNext();
         }
-        throw new RuntimeException(String.format("Между линиями '%s'-'%s' нет станции пересадки",
+        throw new TransferException(String.format("Между линиями '%s'-'%s' нет станции пересадки",
                 startLineName,
                 endLineName));
     }
@@ -182,7 +186,7 @@ public class Metro {
         Station endStation = findStationByName(endStationName);
 
         if (startStation.equals(endStation)) {
-            throw new RuntimeException("Начальная и конечная станции совпадают.");
+            throw new MetroActionException("Начальная и конечная станции совпадают.");
         }
 
         if (startStation.getLine().equals(endStation.getLine())) {
@@ -235,7 +239,7 @@ public class Metro {
             }
         }
 
-        throw new RuntimeException(String.format("Путь между станциями '%s' и '%s' не найден",
+        throw new TransferException(String.format("Путь между станциями '%s' и '%s' не найден",
                 startStation.getName(),
                 endStation.getName()));
     }
@@ -254,7 +258,7 @@ public class Metro {
             return transferCountBack;
         }
 
-        throw new RuntimeException(String.format("Путь между станциями '%s' и '%s' закрыт.",
+        throw new TransferException(String.format("Путь между станциями '%s' и '%s' закрыт.",
                 startStation.getName(),
                 endStation.getName()));
     }
@@ -297,7 +301,7 @@ public class Metro {
         return lines.stream()
                 .filter(line -> line.equals(referenceLine))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException(String.format("Нет линии данного цвета: %s", colorLine)));
+                .orElseThrow(() -> new NotFoundException(String.format("Нет линии данного цвета: %s", colorLine)));
     }
 
     /**
@@ -306,7 +310,7 @@ public class Metro {
     private void checkStationDuplicates(String stationName) {
         lines.forEach(line -> {
             if (line.hasStationWithName(stationName)) {
-                throw new RuntimeException("Имя станции должно быть уникальным" +
+                throw new StationActionException("Имя станции должно быть уникальным" +
                         " (включая названия станций в остальных ветках");
             }
         });
